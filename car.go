@@ -1,4 +1,4 @@
-package car1
+package car
 
 import "fmt"
 
