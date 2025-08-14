@@ -29,7 +29,8 @@ services:
         condition: service_healthy
 
   auth-generator:
-    image: andrianovartemii/gm-test-task-auth-generator:latest
+    platform: linux/arm64/v8
+    image: artyomyatsenko/final-task-auth-generator:latest  #andrianovartemii/gm-test-task-auth-generator:latest
     ports:
       - "8082:8080"
     environment:
@@ -83,7 +84,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - /Users/vectoreal/Repos/github.com/vctrl/currency-service/currency/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /home/hord/Github/currency-service/currency/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
@@ -94,7 +95,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     ports:
-      - "3000:3000"
+      - "3005:3005"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
@@ -110,6 +111,7 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
+    command: ['--disable_metrics=btrfs']
     ports:
       - "8083:8080"
     volumes:
